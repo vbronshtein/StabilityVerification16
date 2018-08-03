@@ -1,0 +1,6 @@
+QoS_Catalog_name,QoS_Value,
+Pipe_Max_Qos,0,
+vc_Qos_Mb_Pri1,64236,
+vc_Qos_Mb_Pri2,128472,
+vc_Qos_Mb_Pri3,192708,
+vc_Qos_Mb_Pri4,256944,

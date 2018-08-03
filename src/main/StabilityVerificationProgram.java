@@ -3,6 +3,7 @@ package main;
 import java.util.List;
 
 import qa.allot.stabilityVerification.core.csvParsers.GenerateFinalCsv;
+import qa.allot.stabilityVerification.core.csvParsers.GenerateQoSCsv;
 import qa.allot.stabilityVerification.core.csvParsers.ParsePolicyInstancesCsv;
 import qa.allot.stabilityVerification.core.csvParsers.ParseTrafficCsvToTrafficStreams;
 import qa.allot.stabilityVerification.core.helpers.PolicyInstanceCalculation;
@@ -30,15 +31,15 @@ import qa.allot.stabilityVerification.core.trafficStreams.TrafficStreamCalculati
 public class StabilityVerificationProgram {
 	public static void main(String[] args) {
 
-//		 int numOfLinks = 5;
-//		 int portSpeed = 10_000;
-//		 int portUtilizationPercent = 50;
-//		 boolean jumboEnable = true;
+		 int numOfLinks = 5;
+		 int portSpeed = 10_000;
+		 int portUtilizationPercent = 50;
+		 boolean jumboEnable = true;
 
-		 int numOfLinks = Integer.parseInt(args[0]);
-		 int portSpeed = Integer.parseInt(args[1]);
-		 int portUtilizationPercent = Integer.parseInt(args[2]);
-		 boolean jumboEnable = (Integer.parseInt(args[3]) > 0 ? true : false);
+//		 int numOfLinks = Integer.parseInt(args[0]);
+//		 int portSpeed = Integer.parseInt(args[1]);
+//		 int portUtilizationPercent = Integer.parseInt(args[2]);
+//		 boolean jumboEnable = (Integer.parseInt(args[3]) > 0 ? true : false);
 		
 		 
 		/**
@@ -79,7 +80,11 @@ public class StabilityVerificationProgram {
 		qosTable.stcQosCalculation(streams);
 		qosTable.print();
 		
-		
+		//save Qos table into csv
+		GenerateQoSCsv qoSCsv = new GenerateQoSCsv();
+		qoSCsv.createQoSCsv(qosTable);
+		System.out.println("(*QoS catalogs also saved in : " + qoSCsv.getCsvOutFile() + ")");
+		System.out.println();
 		//Calculate policy instances
 		PolicyInstanceCalculation policyInstanceCalculation = new PolicyInstanceCalculation(policyInstances);
 		policyInstanceCalculation.CalculatePolicyValues(streams ,qosTable ,jumboEnable);
